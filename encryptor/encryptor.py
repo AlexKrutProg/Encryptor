@@ -65,6 +65,23 @@ class Encryptor(object):
         return code
 
     @staticmethod
+    def encode_word_vernam(word, key):
+        """Encode the word by the key word"""
+        code = ""
+        it = 0
+        for symbol in word:
+            num = ord(symbol) ^ ord(key[it])
+            b = ''
+            while num > 0:
+                b = str(num % 2) + b
+                num = num // 2
+            while len(b) < 6:
+                b = "0" + b
+            code += b
+            it = it + 1 if it < len(key) - 1 else 0
+        return code
+
+    @staticmethod
     def decode_word_caesar(word, key):
         """Decode the word by the key number"""
         code = ""
@@ -80,4 +97,15 @@ class Encryptor(object):
         for symbol in word:
             it = it + 1 if it < len(key) - 1 else 0
             code += Encryptor.decode_symbol(symbol, key[it])
+        return code
+
+    @staticmethod
+    def decode_word_vernam(word, key):
+        """Decode the word by the key word"""
+        code = ""
+        it = 0
+        for i in range(0, len(word), 6):
+            num = int(word[i:i+6], 2) ^ ord(key[it])
+            code += chr(num)
+            it = it + 1 if it < len(key) - 1 else 0
         return code

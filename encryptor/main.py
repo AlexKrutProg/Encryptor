@@ -24,10 +24,14 @@ if __name__ == "__main__":
             manager.text = [Encryptor.encode_word_caesar(line, namespace.key) for line in manager.text]
         elif namespace.cipher == "vigenere":
             manager.text = [Encryptor.encode_word_vigenere(line, namespace.key) for line in manager.text]
+        elif namespace.cipher == "vernam":
+            manager.text = [Encryptor.encode_word_vernam(line, namespace.key) for line in manager.text]
     elif namespace.command == "decode":
         if namespace.cipher == "caesar":
             manager.text = [Encryptor.decode_word_caesar(line, namespace.key) for line in manager.text]
         elif namespace.cipher == "vigenere":
             manager.text = [Encryptor.decode_word_vigenere(line, namespace.key) for line in manager.text]
+        elif namespace.cipher == "vernam":
+            manager.text = [Encryptor.decode_word_vernam(line, namespace.key) for line in manager.text]
 
     manager.write_text()
